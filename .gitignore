@@ -1,0 +1,67 @@
+# Ignore binaries and intermediate build folders
+bin/
+bin/intermediates/
+bin/x64/
+
+# Ignore dependency binaries and temporary files
+dependencies/libs/
+# (Keep headers in include directory for dependency code)
+dependencies/include/
+
+# Ignore Visual Studio and other IDE configuration files
+.vscode/
+.vs/
+*.code-workspace
+
+# Ignore Visual Studio solution and project files backup
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore OS-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore compiled binary files
+*.exe
+*.dll
+*.lib
+*.app
+*.so
+*.dylib
+*.out
+
+# Ignore object and intermediate files
+*.obj
+*.o
+*.ilk
+*.pch
+*.pdb
+*.idb
+*.ipdb
+*.iobj
+*.tlog
+*.lastbuildstate
+*.log
+
+# Ignore Visual Studio and CMake database files
+*.sdf
+*.opensdf
+*.cachefile
+*.VC.db
+*.VC.opendb
+
+# Ignore CMake-specific build files and directories
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+
+# Ignore shader binaries if precompiled
+src/shaders/*.spv
+
+# Ignore system-specific files (optional)
+*.DS_Store
