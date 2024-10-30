@@ -185,6 +185,10 @@
   <ItemGroup>
     <Image Include="src\assets\images\awesomeface.png" />
     <Image Include="src\assets\images\container.jpg" />
+    <Image Include="src\assets\images\container2.png" />
+    <Image Include="src\assets\images\container2_emission.png" />
+    <Image Include="src\assets\images\container2_spec.png" />
+    <Image Include="src\assets\images\matrix.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\libs\glfw3.lib" />

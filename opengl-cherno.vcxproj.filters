@@ -61,6 +61,18 @@
     <Image Include="src\assets\images\awesomeface.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="src\assets\images\container2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\assets\images\container2_spec.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\assets\images\container2_emission.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\assets\images\matrix.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\libs\glfw3.lib" />
