@@ -8,11 +8,13 @@ out vec3 FragPos;
 out vec3 Normal;
 out vec3 LightPos;
 out vec2 TexCoords;
+out vec3 LightDir;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform vec3 lightPos;
+uniform vec3 lightDir;
 
 void main()
 {
@@ -22,4 +24,6 @@ void main()
     LightPos = vec3(view * vec4(lightPos, 1.0f));
     Normal = transpose(inverse(mat3(view * model))) * aNormal;
     TexCoords = aTexCoords;
+
+    LightDir = vec3(view * vec4(lightDir, 0.0f));
 };

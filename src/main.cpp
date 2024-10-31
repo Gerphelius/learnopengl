@@ -21,39 +21,6 @@ static void onMouseKeysInput(GLFWwindow* window, int button, int action, int mod
 float SCREEN_WIDTH{ 800.0f };
 float SCREEN_HEIGHT{ 600.0f };
 
-//float cube[] = {
-//    // positions           // colors            // texture coords
-//    0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,    1.0f, 1.0f,   // front top right
-//    0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f,   // front bottom right
-//   -0.5f, -0.5f,  0.5f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,   // front bottom left
-//   -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 0.0f,    0.0f, 1.0f,   // front top left
-//
-//    0.5f,  0.5f, -0.5f,    1.0f, 0.0f, 0.0f,    1.0f, 1.0f,   // back top right
-//    0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f,   // back bottom right
-//   -0.5f, -0.5f, -0.5f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,   // back bottom left
-//   -0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 0.0f,    0.0f, 1.0f,   // back top left
-//};
-//
-//unsigned int cubeIndices[] = {
-//    0, 1, 2,    // front first triangle
-//    2, 3, 0,    // front second triangle
-//
-//    2, 3, 7,    // left first triangle
-//    2, 6, 7,    // left second triangle
-//
-//    0, 4, 1,    // rigth first triangle
-//    1, 4, 5,    // rigth second triangle
-//
-//    4, 5, 7,    // back first triangle
-//    5, 6, 7,    // back second triangle
-//
-//    3, 7, 0,    // top first triangle
-//    0, 7, 4,    // top second triangle
-//
-//    2, 6, 1,    // bottom first triangle
-//    1, 5, 6     // bottom second triangle
-//};
-
 float cube[]{
      // Back side
      // Vertex coords     // Normals           // Texture coors
@@ -108,91 +75,6 @@ float cube[]{
      0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
     -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f
-};
-
-struct Material
-{
-    glm::vec3 color{};
-    glm::vec3 ambient{};
-    glm::vec3 diffuse{};
-    glm::vec3 specular{};
-    float shininess{};
-};
-
-Material materials[]
-{
-    // Emerald
-    {
-        .color{ glm::vec3(0.31f, 0.78f, 0.47f) },
-        .ambient{ glm::vec3(0.0215f, 0.1745f, 0.0215f) },
-        .diffuse{ glm::vec3(0.07568f, 0.61424f, 0.07568f) },
-        .specular{ glm::vec3(0.633f, 0.727811f, 0.633f) },
-        .shininess{ 0.6f }
-    },
-    // Chrome
-    {
-        .color{ glm::vec3(0.75f, 0.75f, 0.75f) },
-        .ambient{ glm::vec3(0.25f, 0.25f, 0.25f) },
-        .diffuse{ glm::vec3(0.4f, 0.4f, 0.4f) },
-        .specular{ glm::vec3(0.774597f, 0.774597f, 0.774597f) },
-        .shininess{ 0.6f }
-    },
-    // Gold
-    {
-        .color{ glm::vec3(0.83f, 0.69f, 0.22f) },
-        .ambient{ glm::vec3(0.24725f, 0.1995f, 0.0745f) },
-        .diffuse{ glm::vec3(0.75164f, 0.60648f, 0.22648f) },
-        .specular{ glm::vec3(0.628281f, 0.555802f, 0.366065f) },
-        .shininess{ 0.4f }
-    },
-    // Silver
-    {
-        .color{ glm::vec3(0.75f, 0.75f, 0.75f) },
-        .ambient{ glm::vec3(0.19225f, 0.19225f, 0.19225f) },
-        .diffuse{ glm::vec3(0.50754f, 0.50754f, 0.50754f) },
-        .specular{ glm::vec3(0.508273f, 0.508273f, 0.508273f) },
-        .shininess{ 0.4f }
-    },
-    // Ruby
-    {
-        .color{ glm::vec3(0.88f, 0.07f, 0.37f) },
-        .ambient{ glm::vec3(0.1745f, 0.01175f, 0.01175f) },
-        .diffuse{ glm::vec3(0.61424f, 0.04136f, 0.04136f) },
-        .specular{ glm::vec3(0.727811f, 0.626959f, 0.626959f) },
-        .shininess{ 0.6f }
-    },
-    // Yellow plastic
-    {
-        .color{ glm::vec3(1.0f, 0.88f, 0.21f) },
-        .ambient{ glm::vec3(0.0f, 0.0f, 0.0f) },
-        .diffuse{ glm::vec3(0.5f, 0.5f, 0.0f) },
-        .specular{ glm::vec3(0.6f, 0.6f, 0.5f) },
-        .shininess{ 0.25f }
-    },
-    // Pearl
-    {
-        .color{ glm::vec3(0.94f, 0.92f, 0.84f) },
-        .ambient{ glm::vec3(0.25f, 0.20725f, 0.20725f) },
-        .diffuse{ glm::vec3(1.0f, 0.829f, 0.829f) },
-        .specular{ glm::vec3(0.296648f, 0.296648f, 0.296648f) },
-        .shininess{ 0.088f }
-    },
-    // Turquoise
-    {
-        .color{ glm::vec3(0.25f, 0.88f, 0.82f) },
-        .ambient{ glm::vec3(0.1f, 0.18725f, 0.1745f) },
-        .diffuse{ glm::vec3(0.396f, 0.74151f, 0.69102f) },
-        .specular{ glm::vec3(0.297254f, 0.30829f, 0.306678f) },
-        .shininess{ 0.1f }
-    },
-    // Red rubber
-    {
-        .color{ glm::vec3(0.77f, 0.13f, 0.13f) },
-        .ambient{ glm::vec3(0.05f, 0.0f, 0.0f) },
-        .diffuse{ glm::vec3(0.5, 0.4f, 0.4f) },
-        .specular{ glm::vec3(0.7f, 0.04f, 0.04f) },
-        .shininess{ 0.078125f }
-    },
 };
 
 /////////////////////////////////// CAMERA MOVEMENT ///////////////////////////////////
@@ -299,7 +181,7 @@ int main()
     double lastFrame{ 0.0f };
 
     glm::vec3 cameraPos{ glm::vec3(0.0f, 0.0f, 0.0f) };
-    glm::vec3 lightPos(3.0f, 1.0f, 3.0f);
+    glm::vec3 lightPos(0.0f, 2.0f, 0.0f);
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -342,6 +224,33 @@ int main()
             cameraPos -= upNorm * cameraMovementSpeed * static_cast<float>(deltaTime);
         }
 
+        /////////////////////////////////// LIGHT MOVEMENT ///////////////////////////////////
+
+        if (glfwGetKey(window, GLFW_KEY_KP_8) == GLFW_PRESS)
+        {
+            lightPos += glm::vec3(0.0f, 0.0f, -1.0f) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_KP_2) == GLFW_PRESS)
+        {
+            lightPos += glm::vec3(0.0f, 0.0f, 1.0f) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_KP_6) == GLFW_PRESS)
+        {
+            lightPos += glm::vec3(1.0f, 0.0f, 0.0f) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_KP_4) == GLFW_PRESS)
+        {
+            lightPos += glm::vec3(-1.0f, 0.0f, 0.0f) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_KP_9) == GLFW_PRESS)
+        {
+            lightPos += glm::vec3(0.0f, 1.0f, 0.0f) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_KP_3) == GLFW_PRESS)
+        {
+            lightPos += glm::vec3(0.0f, -1.0f, 0.0f) * static_cast<float>(deltaTime);
+        }
+
         /*lightPos.x = sin(timeValue);
         lightPos.z = cos(timeValue);*/
 
@@ -379,9 +288,13 @@ int main()
         shaderProgramCube.setUniform("material.emission", 2);
         shaderProgramCube.setUniform("material.shininess", 64.0f);
 
+        shaderProgramCube.setUniform("lightDir", glm::vec3(0.0f, 1.0f, 0.0f));
         shaderProgramCube.setUniform("light.ambient", glm::vec3(0.1f));
         shaderProgramCube.setUniform("light.diffuse", glm::vec3(0.5f));
         shaderProgramCube.setUniform("light.specular", glm::vec3(1.0f));
+        shaderProgramCube.setUniform("light.attenuation", glm::vec3(1.0f, 0.045f, 0.0075f));
+        shaderProgramCube.setUniform("light.spotCutoffIn", glm::cos(glm::radians(15.0f)));
+        shaderProgramCube.setUniform("light.spotCutoffOut", glm::cos(glm::radians(20.0f)));
 
         shaderProgramCube.setUniform("time", static_cast<float>(timeValue));
 

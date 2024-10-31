@@ -14,28 +14,48 @@ struct Light
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+    vec3 attenuation;
+    float spotCutoffIn;
+    float spotCutoffOut;
 };
 
 in vec3 FragPos;
 in vec3 Normal;
 in vec3 LightPos;
 in vec2 TexCoords;
+in vec3 LightDir;
 
 out vec4 FragColor;
 
 uniform vec3 lightColor;
-uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
-uniform float time;
 
 void main()
 {
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
 
-    vec3 lightDir = normalize(LightPos - FragPos);
+    float dist = length(LightPos - FragPos);
+    float attenuation = 1 / (light.attenuation.x + light.attenuation.y * dist + light.attenuation.z * pow(dist, 2));
+
+//    vec3 lightDir = normalize(LightDir); // Directional light
+//    vec3 lightDir = normalize(LightPos - FragPos); // Point light
+//    vec3 norm = normalize(Normal);
+//    float diff = max(dot(norm, lightDir), 0.0f);
+//    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+
     vec3 norm = normalize(Normal);
-    float diff = max(dot(norm, lightDir), 0.0f);
+    vec3 lightDir = normalize(LightDir);
+    vec3 fragDir = normalize(LightPos - FragPos);
+
+    // Spotlight
+    float theta = dot(fragDir, lightDir);
+    float intencity = smoothstep(0.0, 1.0, (theta - light.spotCutoffOut) / (light.spotCutoffIn - light.spotCutoffOut));
+
+    float sideTheta = dot(norm, fragDir);
+    float diff = smoothstep(0.0, 1.0, (sideTheta - cos(radians(90.0))) / (cos(radians(85.0)) - cos(radians(90.0))));
+
+//    float diff = max(sign(dot(norm, fragDir)), 0.0);
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
 
     vec3 viewDir = normalize(-FragPos);
@@ -44,8 +64,5 @@ void main()
     vec3 specTexelColor = vec3(texture(material.specular, TexCoords));
     vec3 specular = light.specular * specTexelColor * spec;
 
-    vec3 emission = (1.0f - sign(specTexelColor)) * vec3(texture(material.emission, TexCoords * 0.6f + vec2(0.5f, time / 7.0f)));
-    vec3 emission2 = (1.0f - sign(specTexelColor)) * vec3(texture(material.emission, TexCoords + vec2(0.8f, time / 10.0f)));
-
-    FragColor = vec4((ambient + diffuse + specular + emission * 0.8f + emission2 * 0.5f), 1.0f);
+    FragColor = vec4(ambient + (diffuse + specular) * intencity * attenuation, 1.0);
 };
