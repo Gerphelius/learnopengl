@@ -20,6 +20,7 @@ struct Light
 };
 
 in vec3 FragPos;
+in vec4 FragPosV4;
 in vec3 Normal;
 in vec3 LightPos;
 in vec2 TexCoords;
@@ -56,7 +57,9 @@ void main()
     float diff = smoothstep(0.0, 1.0, (sideTheta - cos(radians(90.0))) / (cos(radians(85.0)) - cos(radians(90.0))));
 
 //    float diff = max(sign(dot(norm, fragDir)), 0.0);
-    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+    vec2 texCoords = FragPosV4.xy / dist * 2 + 0.5;
+
+    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords)) * vec3(texture(material.emission, clamp(texCoords, 0.0, 1.0)));
 
     vec3 viewDir = normalize(-FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);

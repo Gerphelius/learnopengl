@@ -126,7 +126,7 @@ int main()
 
     createTexture2D("./src/assets/images/container2.png", GL_TEXTURE0, GL_RGBA, textures[0], false);
     createTexture2D("./src/assets/images/container2_spec.png", GL_TEXTURE1, GL_RGBA, textures[1], false);
-    createTexture2D("./src/assets/images/matrix.jpg", GL_TEXTURE2, GL_RGB, textures[2], false);
+    createTexture2D("./src/assets/images/awesomeface.png", GL_TEXTURE2, GL_RGBA, textures[2], false);
 
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -180,8 +180,9 @@ int main()
     double deltaTime{ 0.0f };
     double lastFrame{ 0.0f };
 
-    glm::vec3 cameraPos{ glm::vec3(0.0f, 0.0f, 0.0f) };
-    glm::vec3 lightPos(0.0f, 2.0f, 0.0f);
+    glm::vec3 cameraPos{ 0.0f, 0.0f, 0.0f };
+    glm::vec3 lightPos{ 0.0f, 2.0f, 0.0f };
+    glm::vec3 lightDir{ 0.0f, 1.0f, 0.0f };
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -264,8 +265,10 @@ int main()
         /////////////////////////////////// MAIN CUBE ///////////////////////////////////
  
         glm::mat4 model{ glm::mat4(1.0f) };
-        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + target, glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 view{ glm::lookAt(cameraPos, cameraPos + target, glm::vec3(0.0f, 1.0f, 0.0f)) };
         glm::mat4 projection{ glm::perspective(glm::radians(45.0f), SCREEN_WIDTH / SCREEN_HEIGHT, 0.1f, 100.0f) };
+
+        glm::mat4 cameraView{ glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0.0f, 0.0f, 1.0f)) };
 
         shaderProgramCube.use();
         shaderProgramCube.setUniform("lightPos", lightPos);
@@ -281,6 +284,7 @@ int main()
         shaderProgramCube.setUniform("model", model);
         shaderProgramCube.setUniform("view", view);
         shaderProgramCube.setUniform("projection", projection);
+        shaderProgramCube.setUniform("cameraView", cameraView);
 
         shaderProgramCube.setUniform("material.ambient", glm::vec3(0.2f));
         shaderProgramCube.setUniform("material.diffuse", 0);
@@ -288,7 +292,7 @@ int main()
         shaderProgramCube.setUniform("material.emission", 2);
         shaderProgramCube.setUniform("material.shininess", 64.0f);
 
-        shaderProgramCube.setUniform("lightDir", glm::vec3(0.0f, 1.0f, 0.0f));
+        shaderProgramCube.setUniform("lightDir", lightDir);
         shaderProgramCube.setUniform("light.ambient", glm::vec3(0.1f));
         shaderProgramCube.setUniform("light.diffuse", glm::vec3(0.5f));
         shaderProgramCube.setUniform("light.specular", glm::vec3(1.0f));
