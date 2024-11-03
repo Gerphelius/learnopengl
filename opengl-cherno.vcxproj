@@ -179,6 +179,7 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\include\KHR\khrplatform.h" />
     <ClInclude Include="dependencies\include\stb\stb_image.h" />
+    <ClInclude Include="src\main.h" />
     <ClInclude Include="src\utils\fileReader.h" />
     <ClInclude Include="src\utils\shaderProgram.h" />
   </ItemGroup>

@@ -8,8 +8,8 @@
 // TODO: refactor this shit
 std::string readFile(const char* path)
 {
-    std::string fileContent{ "" };
-    std::ifstream file;
+    std::string fileContent{};
+    std::ifstream file{};
 
     file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
